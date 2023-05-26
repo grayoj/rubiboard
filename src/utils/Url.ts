@@ -1,0 +1,1 @@
+export const baseUrl = "https://dashboard.rubidelivery.com:9443/";
