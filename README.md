@@ -6,16 +6,16 @@ This is an open sourced version of a dashboard UI used internally at a firm I wo
 
 ## Features
 
-1. Built on top of Vite (So it's a hella fast)
-2. Uses Typescript. 
-3. Uses the SWC Rust based bundler. Faster than Webpack.
-4. Uses React* (Basically all client side components)
-5. Preloaders.
-6. React-Router-Dom
-7. Animations and SVG Icons.
-8. Uses rechart.
-9. Tailwindcss for the entire UI.
-10. Multi-step form.
+- Built on top of Vite (So it's a hella fast)
+- Uses Typescript. 
+- Uses the SWC Rust based bundler. Faster than Webpack.
+- Uses React* (Basically all client side components)
+- Preloaders.
+- React-Router-Dom
+- Animations and SVG Icons.
+- Uses rechart.
+- Tailwindcss for the entire UI.
+- Multi-step form.
 
 
 ## Contributions
