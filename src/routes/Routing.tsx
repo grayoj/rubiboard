@@ -9,22 +9,25 @@ import { randomRoutePath } from '../hooks/useRandomStringRoute';
 import NotFound from '../pages/NotFound';
 import SetupPage from '../pages/SetupPage';
 import DashboardPage from '../pages/DashboardPage';
+import { SessionProvider } from '../providers/SessionProvider';
 
 const Routing = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Index />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/landing' element={<Landing />} />
-        <Route path='/auth' element={<AuthGateway />} />
-        <Route path='/auth/signup' element={<SignupForm />} />
-        <Route path='/success' element={<Success />} />
-        <Route path={`/success/${randomRoutePath}`} element={<Success />} />
-        <Route path='/setup' element={<SetupPage />} />
-        <Route path='/dashboard' element={<DashboardPage />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <SessionProvider>
+        <Routes>
+          <Route path='/' element={<Index />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/landing' element={<Landing />} />
+          <Route path='/auth' element={<AuthGateway />} />
+          <Route path='/auth/signup' element={<SignupForm />} />
+          <Route path='/success' element={<Success />} />
+          <Route path={`/success/${randomRoutePath}`} element={<Success />} />
+          <Route path='/setup' element={<SetupPage />} />
+          <Route path='/dashboard' element={<DashboardPage />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </SessionProvider>
     </BrowserRouter>
   );
 };

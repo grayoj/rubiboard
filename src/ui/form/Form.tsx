@@ -4,6 +4,7 @@ import React from 'react';
 import Spinner from '../Spinner';
 import FormButton from '../buttons/FormButton';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
+import LoadingBar from 'react-top-loading-bar';
 
 const Form: React.FC = () => {
   const {
@@ -14,10 +15,18 @@ const Form: React.FC = () => {
     handleSubmit,
     loading,
     errorMessage,
+    progress,
+    setProgress,
   } = useLoginForm();
 
   return (
     <>
+      <LoadingBar
+        progress={progress}
+        height={3}
+        color='#97E398'
+        onLoaderFinished={() => setProgress(0)}
+      />
       <div className='flex min-h-full flex-col justify-center pb-12 sm:px-6 lg:px-8 items-center h-screen'>
         <FormHeader />
         <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
