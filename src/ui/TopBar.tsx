@@ -1,5 +1,6 @@
 import { Wifi, Notifications, Person } from 'react-ionicons';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const TopBar: React.FC = () => {
   return (
@@ -21,12 +22,14 @@ const TopBar: React.FC = () => {
           height='24px'
           width='24px'
         />
-        <Person
-          style={{ cursor: 'pointer' }}
-          color='white'
-          height='24px'
-          width='24px'
-        />
+        <Link to='/account'>
+          <Person
+            style={{ cursor: 'pointer' }}
+            color='white'
+            height='24px'
+            width='24px'
+          />
+        </Link>
       </div>
     </div>
   );
