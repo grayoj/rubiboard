@@ -76,7 +76,7 @@ const Sidebar = () => {
                         !item.children ? (
                           <div key={item.name}>
                             <a
-                              href='/dashboard'
+                              href={item.href}
                               className={classNames(
                                 item.current
                                   ? ' text-white'
@@ -173,7 +173,7 @@ const Sidebar = () => {
                   !item.children ? (
                     <div key={item.name}>
                       <a
-                        href='/dashboard'
+                        href={item.href}
                         className={classNames(
                           item.current
                             ? ' text-white'

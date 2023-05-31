@@ -9,21 +9,25 @@ export const sidebarItems = [
     name: 'Dashboard',
     icon: Apps,
     current: true,
+    href: '/dashboard'
   },
   {
     name: 'Customers',
     icon: UserCircleIcon,
     current: true,
+    href: '/dashboard/customers'
   },
   {
     name: 'Manage Riders',
     icon: Bicycle,
     current: true,
+    href: '/dashboard/riders'
   },
   {
     name: 'Payments',
     icon: CashOutline,
     current: true,
+    href: '/dashboard/payments'
   },
   {
     name: 'Deliveries',
@@ -38,6 +42,7 @@ export const sidebarItems = [
     name: 'Generate Reports',
     icon: DocumentAttach,
     current: true,
+    href: '/dashboard/reports'
   },
   {
     name: 'Services',
@@ -52,5 +57,6 @@ export const sidebarItems = [
     name: 'Settings',
     icon: CogOutline,
     current: true,
+    href: '/dashboard/settings'
   },
 ];
