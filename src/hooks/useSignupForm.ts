@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FormData } from '../types/SignupInterfaces';
 import { baseUrl } from '../utils/Url';
 import { useNavigate } from 'react-router-dom';
+import { randomRoutePath } from './useRandomStringRoute';
 
 const useSignupForm = () => {
  const [step, setStep] = useState(1);
@@ -37,9 +38,9 @@ const useSignupForm = () => {
   setLoading(true);
   e.preventDefault();
   try {
-   await axios.post(`${baseUrl}/auth/signup`, formData);
+   await axios.post(`${baseUrl}/api/auth/signup`, formData);
    console.log('Form submitted:', formData);
-   navigate('/success')
+   navigate(`/success/${randomRoutePath}`)
 
   } catch (error: any) {
    console.error('Form submission error:', error);

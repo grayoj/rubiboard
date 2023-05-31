@@ -11,6 +11,8 @@ import SetupPage from '../pages/SetupPage';
 import DashboardPage from '../pages/DashboardPage';
 import { SessionProvider } from '../providers/SessionProvider';
 import ProfilePage from '../pages/ProfilePage';
+import CustomersPage from '../pages/CustomersPage';
+import RidersPage from '../pages/RidersPage';
 
 const Routing = () => {
   return (
@@ -32,6 +34,11 @@ const Routing = () => {
                 <Route path='dashboard' element={<DashboardPage />} />
                 <Route path='account' element={<ProfilePage />} />
                 <Route path='setup' element={<SetupPage />} />
+                <Route
+                  path='/dashboard/customers'
+                  element={<CustomersPage />}
+                />
+                <Route path='/dashboard/riders' element={<RidersPage />} />
               </Routes>
             </SessionProvider>
           }

@@ -37,7 +37,7 @@ const useLoginForm = () => {
   setProgress(30);
 
   try {
-   const response = await axios.post<LoginResponse>(`${baseUrl}/auth/signin`, {
+   const response = await axios.post<LoginResponse>(`${baseUrl}/api/auth/signin`, {
     username,
     password,
    });

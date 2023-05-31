@@ -3,9 +3,8 @@ import useLogout from '../hooks/useLogout';
 import useGetAccount from '../hooks/useGetAccount';
 
 interface User {
-  companyName: string;
-  email: string;
   username: string;
+  email: string;
 }
 
 const ProfileUI: React.FC = () => {
@@ -39,7 +38,7 @@ const ProfileUI: React.FC = () => {
                 Username
               </label>
               <p id='name' className='text-white'>
-                {user.username}
+                {user?.username}
               </p>
             </div>
             <div>
@@ -47,7 +46,7 @@ const ProfileUI: React.FC = () => {
                 Email Address
               </label>
               <p id='email' className='text-white'>
-                {user.email}
+                {user?.email}
               </p>
             </div>
             <div>
