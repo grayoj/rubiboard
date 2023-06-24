@@ -1,9 +1,12 @@
 import { Transition } from '@headlessui/react';
 import { BellAlertIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import React, { Fragment, useState } from 'react';
+import useGetAccount from '../../hooks/useGetAccount';
+import { User } from '../../types/UserInterfaces';
 
 const NotificationPanel: React.FC = () => {
   const [show, setShow] = useState(true);
+  const user: User = useGetAccount();
   return (
     <div
       aria-live='assertive'
@@ -31,7 +34,7 @@ const NotificationPanel: React.FC = () => {
                 </div>
                 <div className='ml-3 w-0 flex-1 pt-0.5'>
                   <p className='text-sm font-medium text-white'>
-                    Welcome Rubi Logistics
+                    Welcome {user?.companyName}
                   </p>
                   <p className='mt-1 text-sm text-white'>
                     This dashboard created for you will let you manage your

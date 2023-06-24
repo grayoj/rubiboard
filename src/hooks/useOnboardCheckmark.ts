@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { randomRoutePath } from './useRandomStringRoute';
 
-const useCheckmarkAnimation = () => {
+const useOnboardCheckmark = () => {
  const navigate = useNavigate();
 
  useEffect(() => {
   const timer = setTimeout(() => {
-   navigate(`/setup/${randomRoutePath}`);
+   navigate(`/dashboard/riders`);
   }, 3000);
 
   return () => {
@@ -16,4 +15,4 @@ const useCheckmarkAnimation = () => {
  }, [navigate]);
 };
 
-export default useCheckmarkAnimation;
+export default useOnboardCheckmark;

@@ -7,16 +7,39 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { ChartData, GraphProps } from '../../types/GraphProps';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { baseUrl } from '../../utils/Url';
 
-export const GraphComponent: React.FC<GraphProps> = () => {
-  const data: ChartData[] = [
-    { month: 'Month 1', Deliveries: 10 },
-    { month: 'Month 2', Deliveries: 20 },
-    { month: 'Month 3', Deliveries: 15 },
-    { month: 'Month 4', Deliveries: 8 },
-    { month: 'Month 5', Deliveries: 12 },
-  ];
+interface DeliveryResponse {
+  deliveryCount: number;
+}
+
+export const GraphComponent: React.FC = () => {
+  const [deliveryCount, setDeliveryCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchDeliveriesCount = async () => {
+      try {
+        const response = await axios.get<DeliveryResponse>(
+          `${baseUrl}/api/delivery/deliveries/rider/count`
+        );
+        const { deliveryCount } = response.data;
+        setDeliveryCount(deliveryCount);
+      } catch (error) {
+        console.error('Error fetching Deliveries count:', error);
+      }
+    };
+
+    fetchDeliveriesCount();
+  }, []);
+
+  const data = Array.from({ length: 12 }).map((_, index) => ({
+    month: `Month ${index + 1}`,
+    Deliveries: deliveryCount
+      ? Math.round((deliveryCount / 12) * (index + 1))
+      : 0,
+  }));
 
   return (
     <ResponsiveContainer width='100%' height={300}>

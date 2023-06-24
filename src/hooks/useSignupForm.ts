@@ -4,21 +4,25 @@ import { FormData } from '../types/SignupInterfaces';
 import { baseUrl } from '../utils/Url';
 import { useNavigate } from 'react-router-dom';
 import { randomRoutePath } from './useRandomStringRoute';
+import 'react-toastify/dist/ReactToastify.css';
+import { validateStep } from '../utils/Validation';
+
 
 const useSignupForm = () => {
  const [step, setStep] = useState(1);
  const [loading, setLoading] = useState(false);
  const [errorMessage, setErrorMessage] = useState('');
+ const [confirmPassword, setConfirmPassword] = useState('');
  const navigate = useNavigate();
  const [formData, setFormData] = useState<FormData>({
-  name: '',
+  companyName: '',
   username: '',
   email: '',
   password: '',
-  state: '',
-  cacnumber: '',
+  companyState: '',
+  cacNumber: '',
   riderNumber: '',
-  address: '',
+  streetAddress: '',
  });
 
  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
@@ -37,6 +41,15 @@ const useSignupForm = () => {
  const handleSubmit = async (e: React.FormEvent) => {
   setLoading(true);
   e.preventDefault();
+
+  const error = validateStep(step, formData, name);
+  if (formData.password !== confirmPassword) {
+   setErrorMessage("Passwords do not match");
+   return;
+  }
+
+  setErrorMessage(error);
+
   try {
    await axios.post(`${baseUrl}/api/auth/signup`, formData);
    console.log('Form submitted:', formData);
@@ -50,6 +63,7 @@ const useSignupForm = () => {
   }
  };
 
+
  return {
   step,
   formData,
@@ -58,7 +72,10 @@ const useSignupForm = () => {
   handlePrevStep,
   handleSubmit,
   errorMessage,
+  setErrorMessage,
   loading,
+  confirmPassword,
+  setConfirmPassword
  };
 };
 

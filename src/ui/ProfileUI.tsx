@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useLogout from '../hooks/useLogout';
 import useGetAccount from '../hooks/useGetAccount';
-
-interface User {
-  username: string;
-  email: string;
-}
+import { User } from '../types/UserInterfaces';
+import axios from 'axios';
+import { baseUrl } from '../utils/Url';
+import Spinner from './Spinner';
 
 const ProfileUI: React.FC = () => {
+  const [totalRiders, setTotalRiders] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
   const user: User = useGetAccount();
 
   const logout = useLogout();
@@ -16,6 +17,34 @@ const ProfileUI: React.FC = () => {
     logout();
   };
 
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    let userId: any;
+
+    if (userData) {
+      const user = JSON.parse(userData);
+      userId = user.id;
+    }
+
+    const fetchRidersCount = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `${baseUrl}/api/user/riders/count?userId=${userId}`
+        );
+        const { totalRiders } = response.data;
+        setTotalRiders(totalRiders);
+      } catch (error) {
+        console.error('Error fetching riders count:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchRidersCount();
+    }
+  }, []);
   return (
     <>
       <div className='bg-darkTheme rounded-md'>
@@ -30,7 +59,7 @@ const ProfileUI: React.FC = () => {
                 Business Name
               </label>
               <p id='name' className='text-white'>
-                Admin
+                {user?.companyName}
               </p>
             </div>
             <div>
@@ -54,7 +83,7 @@ const ProfileUI: React.FC = () => {
                 Cac Number
               </label>
               <p id='email' className='text-white'>
-                1000000000
+                {user?.cacNumber}
               </p>
             </div>
             <div>
@@ -62,7 +91,7 @@ const ProfileUI: React.FC = () => {
                 Street Address
               </label>
               <p id='email' className='text-white'>
-                No 16. Cotonou Crescent, Wuse, FCT, Abuja
+                {user?.streetAddress}
               </p>
             </div>
             <div>
@@ -70,14 +99,16 @@ const ProfileUI: React.FC = () => {
                 State
               </label>
               <p id='email' className='text-white'>
-                Abuja
+                {user?.companyState}
               </p>
             </div>
           </div>
           <div>
             <h3 className='text-lg font-bold text-white'>Statistics</h3>
-            <p className='text-white'>Deliveries Completed: 10</p>
-            <p className='text-white'>Riders: 5</p>
+            <p className='text-white'>Deliveries Completed: 0</p>
+            <p className='text-white'>
+              Riders: {loading ? <Spinner /> : totalRiders}
+            </p>
           </div>
         </div>
       </div>

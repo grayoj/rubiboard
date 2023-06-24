@@ -85,6 +85,7 @@ const Sidebar = () => {
                               )}
                             >
                               <item.icon
+                                //@ts-ignore
                                 className={classNames(
                                   item.current
                                     ? 'text-white'
@@ -183,6 +184,7 @@ const Sidebar = () => {
                       >
                         <item.icon
                           color={'#FFFFFF'}
+                          //@ts-ignore
                           className={classNames(
                             item.current
                               ? 'text-white'

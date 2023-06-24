@@ -1,8 +1,4 @@
-import {
-  UserCircleIcon,
-} from '@heroicons/react/24/solid';
-
-import { Apps, Bicycle, CashOutline, CubeOutline, DocumentAttach, CogOutline, Server } from 'react-ionicons'
+import { Apps, Bicycle, CubeOutline, DocumentAttach, Server } from 'react-ionicons'
 
 export const sidebarItems = [
   {
@@ -11,31 +7,30 @@ export const sidebarItems = [
     current: true,
     href: '/dashboard'
   },
-  {
-    name: 'Customers',
-    icon: UserCircleIcon,
-    current: true,
-    href: '/dashboard/customers'
-  },
+  // {
+  //   name: 'Customers',
+  //   icon: UserCircleIcon,
+  //   current: true,
+  //   href: '/dashboard/customers'
+  // },
   {
     name: 'Manage Riders',
     icon: Bicycle,
     current: true,
     href: '/dashboard/riders'
   },
-  {
-    name: 'Payments',
-    icon: CashOutline,
-    current: true,
-    href: '/dashboard/payments'
-  },
+  // {
+  //   name: 'Payments',
+  //   icon: CashOutline,
+  //   current: true,
+  //   href: '/dashboard/payments'
+  // },
   {
     name: 'Deliveries',
     icon: CubeOutline,
     current: true,
     children: [
-      { name: 'Assign Delivery', href: '' },
-      { name: 'Manage Delivery', href: '' },
+      { name: 'Manage Delivery', href: '/dashboard/deliveries' },
     ],
   },
   {
@@ -49,14 +44,14 @@ export const sidebarItems = [
     icon: Server,
     current: true,
     children: [
-      { name: 'Logistics API', href: '' },
-      { name: 'API Keys', href: '' },
+      { name: 'Logistics API', href: '/api' },
+      { name: 'API Keys', href: '/api/keys' },
     ],
   },
-  {
-    name: 'Settings',
-    icon: CogOutline,
-    current: true,
-    href: '/dashboard/settings'
-  },
+  // {
+  //   name: 'Settings',
+  //   icon: CogOutline,
+  //   current: true,
+  //   href: '/dashboard/settings'
+  // },
 ];

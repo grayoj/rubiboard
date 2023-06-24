@@ -4,5 +4,5 @@ export const riderNumber = [
  '20-50',
  '50-100',
  '100-500',
- 'Abover 1,000',
+ 'Above 1,000',
 ]

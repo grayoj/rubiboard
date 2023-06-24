@@ -11,7 +11,7 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
   let sessionTimeout: number;
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('user');
     if (token) {
       setIsLoggedIn(true);
       resetSessionTimeout();
@@ -32,7 +32,7 @@ const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
 
   const logout = () => {
     setIsLoggedIn(false);
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 

@@ -4,5 +4,5 @@ export interface LoginFormState {
 }
 
 export interface LoginResponse {
-  token: string;
+  accessToken: string;
 }

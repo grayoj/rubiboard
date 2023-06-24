@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import Checkmark from '../ui/Checkmark';
-import useCheckmarkAnimation from '../hooks/useCheckmarkAnimation';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useOnboardCheckmark from '../hooks/useOnboardCheckmark';
 
-const Success: React.FC = () => {
-  useCheckmarkAnimation();
+const OnboardSuccess: React.FC = () => {
+  useOnboardCheckmark();
   useEffect(() => {
     toast.success('Your signup was successful!', {
       position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000,
+      autoClose: 4000,
     });
   }, []);
   return (
@@ -18,10 +18,10 @@ const Success: React.FC = () => {
         <Checkmark />
       </div>
       <div className='mt-4'>
-        <h2 className='text-white text-lg'>Successful</h2>
+        <h2 className='text-white text-lg'>Your rider has been onboarded</h2>
       </div>
     </>
   );
 };
 
-export default Success;
+export default OnboardSuccess;

@@ -17,7 +17,7 @@ const useLoginForm = () => {
  const navigate = useNavigate();
 
  useEffect(() => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('user');
   if (token) {
    navigate('/dashboard');
   }
@@ -36,22 +36,37 @@ const useLoginForm = () => {
   setLoading(true);
   setProgress(30);
 
+
   try {
    const response = await axios.post<LoginResponse>(`${baseUrl}/api/auth/signin`, {
     username,
     password,
    });
-   const token = response.data.token;
-   localStorage.setItem('token', token);
+   if (response.data.accessToken) {
+    const token = response.data.accessToken;
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(response.data));
+   }
    toast.success('Login successful!', { autoClose: 2000 });
    setProgress(100);
    setTimeout(() => {
     navigate('/dashboard');
-   }, 2000);
+   }, 3000);
   } catch (error: any) {
-   setErrorMessage(error.message);
+   if (error.response && error.response.status === 401) {
+    // User not approved
+    setErrorMessage('Not Found');
+    toast.error('Are you sure this account exists.');
+   } else if (error.response && error.response.status === 500) {
+    // Internal server error
+    setErrorMessage('Your account is pending verification. Please try again later');
+    toast.error('Your account is pending verification. Please try again later.');
+   } else {
+    // Other error
+    setErrorMessage('Login failed. Please try again.');
+    toast.error('Login failed. Please try again.');
+   }
    setIsModalOpen(true);
-   toast.error('Login failed. Please try again.');
    setProgress(0);
   } finally {
    setLoading(false);

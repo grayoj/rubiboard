@@ -11,7 +11,7 @@ export const RiderTable: React.FC = () => {
         <thead>
           <tr>
             <th className='border border-basicDark px-4 py-2'>
-              <p className='text-white'>First Name</p>
+              <p className='text-white'>Full Name</p>
             </th>
             <th className='border border-basicDark px-4 py-2'>
               <p className='text-white'>Last Name</p>

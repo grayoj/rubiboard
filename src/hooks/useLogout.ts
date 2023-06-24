@@ -8,23 +8,26 @@ const useLogout = () => {
 
  const logout = () => {
   localStorage.removeItem('token');
+  localStorage.removeItem('user');
   navigate('/login');
  };
 
+ const handleLogout = () => {
+  toast.success('You have been logged out successfully!', {
+   position: toast.POSITION.TOP_CENTER,
+   autoClose: 2000,
+  });
+  logout();
+ };
+
  useEffect(() => {
-  const notifyLogout = () => {
-   toast.success('You have been logged out successfully!', {
-    position: toast.POSITION.TOP_CENTER,
-    autoClose: 2000,
-   });
-  };
   return () => {
-   notifyLogout();
-   logout();
+   // Cleanup function to remove the event listener when the component unmounts
+   document.removeEventListener('click', handleLogout);
   };
  }, []);
 
- return logout;
+ return handleLogout;
 };
 
 export default useLogout;

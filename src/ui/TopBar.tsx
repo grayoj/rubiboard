@@ -16,13 +16,15 @@ const TopBar: React.FC = () => {
           />
           <p className='text-sm text-white'>Your account is active</p>
         </div>
-        <Notifications
-          style={{ cursor: 'pointer' }}
-          color='white'
-          height='24px'
-          width='24px'
-        />
-        <Link to='/account'>
+        <Link to='/notifications'>
+          <Notifications
+            style={{ cursor: 'pointer' }}
+            color='white'
+            height='24px'
+            width='24px'
+          />
+        </Link>
+        <Link to='/profile'>
           <Person
             style={{ cursor: 'pointer' }}
             color='white'
