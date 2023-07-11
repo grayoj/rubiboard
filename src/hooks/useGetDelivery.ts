@@ -11,6 +11,7 @@ const useGetDelivery = () => {
  const [currentPage, setCurrentPage] = useState(0);
  const [loading, setLoading] = useState(true);
  const [deliveries, setDeliveries] = useState<Delivery[]>([]);
+ const [totalElements, setTotalElements] = useState(0);
  const navigate = useNavigate();
 
  const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const useGetDelivery = () => {
      const data = response.data;
      setDeliveries(data.content);
      setPageCount(data.totalPages);
+     setTotalElements(data.totalElements);
      setLoading(false);
     } catch (error) {
      setLoading(false);
@@ -66,6 +68,7 @@ const useGetDelivery = () => {
   deliveries,
   handlePageClick,
   handleEditClick,
+  totalElements
  };
 };
 
