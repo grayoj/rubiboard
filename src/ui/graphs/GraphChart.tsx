@@ -13,21 +13,30 @@ import { baseUrl } from '../../utils/Url';
 
 interface DeliveryResponse {
   deliveryCount: number;
+  totalElements: number;
 }
 
 export const GraphComponent: React.FC = () => {
-  const [deliveryCount, setDeliveryCount] = useState<number | null>(null);
+  const [deliveryCount, setDeliveryCount] = useState<number>(0);
 
   useEffect(() => {
     const fetchDeliveriesCount = async () => {
       try {
-        const response = await axios.get<DeliveryResponse>(
-          `${baseUrl}/api/delivery/deliveries/rider/count`
-        );
-        const { deliveryCount } = response.data;
-        setDeliveryCount(deliveryCount);
+        // Retrieve the userId from local storage
+        //@ts-ignore
+        const user = JSON.parse(localStorage.getItem('user'));
+        const userId = user && user.id; // Perform null check
+
+        if (userId) {
+          const response = await axios.get<DeliveryResponse>(
+            `${baseUrl}/api/delivery/deliveries/rider?userId=${userId}`
+          );
+          const data = response.data;
+          setDeliveryCount(data.totalElements);
+        }
       } catch (error) {
         console.error('Error fetching Deliveries count:', error);
+      } finally {
       }
     };
 
