@@ -5,4 +5,6 @@ export interface User {
  companyName: string;
  streetAddress: string;
  companyState: string;
+ bankName: string;
+ accountNumber: string;
 }

@@ -7,6 +7,8 @@ export interface FormData {
  riderNumber: string;
  cacNumber: string;
  streetAddress: string;
+ accountNumber: string;
+ bankName: string;
 }
 
 export interface RiderFormData {
