@@ -7,6 +7,7 @@ import NotificationPanel from '../ui/notifications/NotificationPanel';
 import GraphUI from '../ui/GraphUI';
 import DashboardCards from '../ui/DashboardCards';
 import SupportButton from '../components/SupportButton';
+import { TopCTASection } from '../ui/TopCTASection';
 
 const Dashboard: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const Dashboard: React.FC = () => {
       <DashboardWrapper>
         <CTA />
         <GraphUI />
+        <TopCTASection />
         <DashboardCards />
       </DashboardWrapper>
       <SupportButton />
