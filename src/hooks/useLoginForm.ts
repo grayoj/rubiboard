@@ -55,12 +55,12 @@ const useLoginForm = () => {
   } catch (error: any) {
    if (error.response && error.response.status === 401) {
     // User not approved
-    setErrorMessage('Not Found');
-    toast.error('Are you sure this account exists.');
+    setErrorMessage('');
+    toast.error('Your account is pending verification. Please try again later.');
    } else if (error.response && error.response.status === 500) {
     // Internal server error
-    setErrorMessage('Your account is pending verification. Please try again later');
-    toast.error('Your account is pending verification. Please try again later.');
+    setErrorMessage('Wrong credentials.If this persists, contact support.Or your account may be disabled.');
+    toast.error('Wrong credentials. If this persists, contact support. Or your account may be disabled.');
    } else {
     // Other error
     setErrorMessage('Login failed. Please try again.');
