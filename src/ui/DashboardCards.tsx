@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {
-  ArrowUpIcon,
-  CubeIcon,
-  UserCircleIcon,
-} from '@heroicons/react/20/solid';
+import { ArrowUpIcon, CubeIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Bicycle } from 'react-ionicons';
+import { Bicycle, CashOutline } from 'react-ionicons';
 import Spinner from './Spinner';
 import { baseUrl } from '../utils/Url';
 
@@ -20,11 +16,13 @@ function classNames(...classes: string[]) {
 
 interface DeliveryResponse {
   deliveryCount: number;
+  totalElements: number;
 }
 
 const DashboardCards: React.FC = () => {
   const [totalRiders, setTotalRiders] = useState<number | null>(null);
   const [deliveryCount, setDeliveryCount] = useState<number | null>(null);
+  const [paymentCount, setPaymentsCount] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -63,14 +61,14 @@ const DashboardCards: React.FC = () => {
         // Retrieve the userId from local storage
         //@ts-ignore
         const user = JSON.parse(localStorage.getItem('user'));
-        const userId = user && user.userId; // Perform null check
+        const userId = user && user.id; // Perform null check
 
         if (userId) {
           const response = await axios.get<DeliveryResponse>(
-            `https://dashboard.rubidelivery.com:9443/api/delivery/deliveries/rider?userId=${userId}&page=0&size=10`
+            `${baseUrl}/api/delivery/deliveries/rider?userId=${userId}`
           );
-          const { deliveryCount } = response.data;
-          setDeliveryCount(deliveryCount);
+          const data = response.data;
+          setDeliveryCount(data.totalElements);
         }
       } catch (error) {
         console.error('Error fetching Deliveries count:', error);
@@ -82,6 +80,31 @@ const DashboardCards: React.FC = () => {
     fetchDeliveriesCount();
   }, []);
 
+  useEffect(() => {
+    const fetchPaymentsCount = async () => {
+      try {
+        setLoading(true);
+        // Retrieve the userId from local storage
+        //@ts-ignore
+        const user = JSON.parse(localStorage.getItem('user'));
+        const userId = user && user.id; // Perform null check
+
+        if (userId) {
+          const response = await axios.get<DeliveryResponse>(
+            `${baseUrl}/api/delivery/deliveries/rider/payments?userId=${userId}`
+          );
+          const data = response.data;
+          setPaymentsCount(data.totalElements);
+        }
+      } catch (error) {
+        console.error('Error fetching Payments count:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPaymentsCount();
+  }, []);
   return (
     <div className='mt-4'>
       <h3 className='text-lg leading-6 font-medium text-white'>
@@ -121,7 +144,7 @@ const DashboardCards: React.FC = () => {
             <div className='absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6'>
               <div className='text-sm'>
                 <Link
-                  to='/'
+                  to='/dashboard/riders'
                   className='font-medium text-white hover:text-productGreen'
                 >
                   {' '}
@@ -135,7 +158,7 @@ const DashboardCards: React.FC = () => {
         <div className='relative bg-darkTheme pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden'>
           <dt>
             <div className='absolute bg-productGreen rounded-md p-3'>
-              <UserCircleIcon
+              <CashOutline
                 //@ts-ignore
                 className='h-6 w-6 text-white'
                 color='white'
@@ -143,11 +166,13 @@ const DashboardCards: React.FC = () => {
               />
             </div>
             <p className='ml-16 text-sm font-medium text-white truncate'>
-              Customers
+              Payments
             </p>
           </dt>
           <dd className='ml-16 pb-6 flex items-baseline sm:pb-7'>
-            <p className='text-2xl font-semibold text-white'>0</p>
+            <p className='text-2xl font-semibold text-white'>
+              {loading ? <Spinner /> : paymentCount}
+            </p>
             <p
               className={classNames(
                 'ml-2 flex items-baseline text-sm font-semibold text-white'
@@ -207,7 +232,7 @@ const DashboardCards: React.FC = () => {
             <div className='absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6'>
               <div className='text-sm'>
                 <Link
-                  to='/'
+                  to='/dashboard/deliveries'
                   className='font-medium text-white hover:text-productGreen'
                 >
                   {' '}
