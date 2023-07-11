@@ -45,6 +45,7 @@ const ProfileUI: React.FC = () => {
       fetchRidersCount();
     }
   }, []);
+
   return (
     <>
       <div className='bg-darkTheme rounded-md'>
@@ -82,30 +83,34 @@ const ProfileUI: React.FC = () => {
               <label htmlFor='cac' className='text-lg font-bold text-white'>
                 Cac Number
               </label>
-              <p id='email' className='text-white'>
-                {user?.cacNumber}
-              </p>
+              <p className='text-white'>{user?.cacNumber}</p>
             </div>
             <div>
               <label htmlFor='address' className='text-lg font-bold text-white'>
                 Street Address
               </label>
-              <p id='email' className='text-white'>
-                {user?.streetAddress}
-              </p>
+              <p className='text-white'>{user?.streetAddress}</p>
             </div>
             <div>
               <label htmlFor='address' className='text-lg font-bold text-white'>
                 State
               </label>
-              <p id='email' className='text-white'>
-                {user?.companyState}
-              </p>
+              <p className='text-white'>{user?.companyState}</p>
+            </div>
+            <div>
+              <label htmlFor='address' className='text-lg font-bold text-white'>
+                Bank Name
+              </label>
+              <p className='text-white'>{user?.bankName}</p>
+            </div>
+            <div>
+              <label htmlFor='address' className='text-lg font-bold text-white'>
+                Account Number
+              </label>
+              <p className='text-white'>{user?.accountNumber}</p>
             </div>
           </div>
           <div>
-            <h3 className='text-lg font-bold text-white'>Statistics</h3>
-            <p className='text-white'>Deliveries Completed: 0</p>
             <p className='text-white'>
               Riders: {loading ? <Spinner /> : totalRiders}
             </p>
@@ -114,8 +119,11 @@ const ProfileUI: React.FC = () => {
       </div>
       <div className='bg-darkTheme rounded-md my-4 p-4'>
         <div className='flex space-x-4'>
-          <button className='px-4 py-2 text-white bg-productRed rounded'>
-            Request Account Deletion
+          <button
+            className='px-4 py-2 text-white rounded'
+            style={{ backgroundColor: 'yellow' }}
+          >
+            Update Account
           </button>
           <button
             onClick={handleLogout}
