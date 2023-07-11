@@ -1,4 +1,4 @@
-import { Apps, Bicycle, CubeOutline, DocumentAttach, Server } from 'react-ionicons'
+import { Apps, Bicycle, CashOutline, CubeOutline, DocumentAttach, Server } from 'react-ionicons'
 
 export const sidebarItems = [
   {
@@ -19,12 +19,6 @@ export const sidebarItems = [
     current: true,
     href: '/dashboard/riders'
   },
-  // {
-  //   name: 'Payments',
-  //   icon: CashOutline,
-  //   current: true,
-  //   href: '/dashboard/payments'
-  // },
   {
     name: 'Deliveries',
     icon: CubeOutline,
@@ -44,9 +38,19 @@ export const sidebarItems = [
     icon: Server,
     current: true,
     children: [
-      { name: 'Logistics API', href: '/api' },
-      { name: 'API Keys', href: '/api/keys' },
+      { name: 'Logistics API', href: '/dashboard/api' },
+      { name: 'API Keys', href: '/dashboard/api/keys' },
     ],
+  },
+  {
+    name: 'Payments',
+    icon: CashOutline,
+    current: true,
+    children: [
+      { name: 'Payment Records', href: '/dashboard/payments' },
+      { name: 'Payment Search', href: '/dashboard/payments/search' },
+      { name: 'Records Search', href: '/dashboard/search/payments' }
+    ]
   },
   // {
   //   name: 'Settings',
