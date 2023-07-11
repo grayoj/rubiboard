@@ -23,6 +23,8 @@ const useSignupForm = () => {
   cacNumber: '',
   riderNumber: '',
   streetAddress: '',
+  accountNumber: '',
+  bankName: '',
  });
 
  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
