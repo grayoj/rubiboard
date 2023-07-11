@@ -1,4 +1,4 @@
-import { Wifi, Notifications, Person } from 'react-ionicons';
+import { Wifi, Person } from 'react-ionicons';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,14 +16,14 @@ const TopBar: React.FC = () => {
           />
           <p className='text-sm text-white'>Your account is active</p>
         </div>
-        <Link to='/notifications'>
+        {/* <Link to='/notifications'>
           <Notifications
             style={{ cursor: 'pointer' }}
             color='white'
             height='24px'
             width='24px'
           />
-        </Link>
+        </Link> */}
         <Link to='/profile'>
           <Person
             style={{ cursor: 'pointer' }}
