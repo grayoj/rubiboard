@@ -3,18 +3,48 @@ import Pdf from 'react-to-pdf';
 import ReactPaginate from 'react-paginate';
 import useGetDelivery from '../../hooks/useGetDelivery';
 import Button from '../buttons/Button';
+import { Status } from '../Status';
 
 const DeliveriesTable: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const { pageCount, loading, deliveries, handlePageClick } = useGetDelivery();
+  const { pageCount, loading, deliveries, handlePageClick, totalElements } =
+    useGetDelivery();
 
-  if (!deliveries) {
+  if (deliveries.length === 0) {
     return (
-      <div className='bg-darkTheme container mx-auto px-4 py-8'>
-        <p className='text-white text-2xl'>
-          You do not have any Deliveries done by your riders
-        </p>
-      </div>
+      <main className='flex-1 xl:ml-64 bg-basicDark'>
+        <div className='py-12'>
+          <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'></div>
+          <div className='px-4 sm:px-6 lg:px-8 mt-7'>
+            <div className='sm:flex sm:items-center'>
+              <div className='sm:flex-auto'>
+                <h1 className='text-xl font-semibold text-white'>Deliveries</h1>
+                <p className='mt-2 text-lg text-white'>
+                  Here you can see details the deliveries by the rider who
+                  facilitated the delivery.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className='container mx-auto max-w-7xl px-4 py-8 '>
+            <p className='text-white text-center text-lg'>
+              You do not have any Deliveries done by your riders, Yet. When you
+              do, it displays here.
+            </p>
+            <div className='flex justify-center my-10'>
+              <div>
+                <img
+                  src='https://i.ibb.co/GJtDpcP/glass.png'
+                  alt='Nothing Here'
+                  className='w-20 h-20'
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     );
   }
   return (
@@ -30,6 +60,7 @@ const DeliveriesTable: React.FC = () => {
                 facilitated the delivery.
               </p>
             </div>
+            <p className='text-white'>Total Deliveries: {totalElements}</p>
           </div>
           <div className='mt-8 flex flex-col'>
             <div className='-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -98,12 +129,6 @@ const DeliveriesTable: React.FC = () => {
                               scope='col'
                               className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6'
                             >
-                              Rider
-                            </th>
-                            <th
-                              scope='col'
-                              className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6'
-                            >
                               Amount
                             </th>
                             <th
@@ -111,6 +136,12 @@ const DeliveriesTable: React.FC = () => {
                               className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6'
                             >
                               Timestamp
+                            </th>
+                            <th
+                              scope='col'
+                              className='py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6'
+                            >
+                              Rider
                             </th>
                             <th
                               scope='col'
@@ -182,7 +213,7 @@ const DeliveriesTable: React.FC = () => {
                                   <div className='flex items-center'>
                                     <div className='ml-1'>
                                       <div className='font-medium text-white'>
-                                        {delivery.timestamp}
+                                        {delivery.deliveryTime}
                                       </div>
                                     </div>
                                   </div>
@@ -191,7 +222,7 @@ const DeliveriesTable: React.FC = () => {
                                   <div className='flex items-center'>
                                     <div className='ml-1'>
                                       <div className='font-medium text-white'>
-                                        {delivery.rider}
+                                        {delivery.deliveryRider}
                                       </div>
                                     </div>
                                   </div>
@@ -201,7 +232,32 @@ const DeliveriesTable: React.FC = () => {
                                     <div className='flex items-center'>
                                       <div className='ml-1'>
                                         <div className='font-medium text-white'>
-                                          {delivery.status}
+                                          {delivery?.status === 'PENDING' && (
+                                            <Status color='yellow'>
+                                              Pending
+                                            </Status>
+                                          )}
+                                          {delivery?.status ===
+                                            'IN_PROGRESS' && (
+                                            <Status color='yellow'>
+                                              In Progress
+                                            </Status>
+                                          )}
+                                          {delivery?.status === 'PICKED_UP' && (
+                                            <Status color='yellow'>
+                                              Picked Up
+                                            </Status>
+                                          )}
+                                          {delivery?.status === 'CANCELLED' && (
+                                            <Status color='red'>
+                                              Cancelled
+                                            </Status>
+                                          )}
+                                          {delivery?.status === 'COMPLETED' && (
+                                            <Status color='green'>
+                                              Completed
+                                            </Status>
+                                          )}
                                         </div>
                                       </div>
                                     </div>
