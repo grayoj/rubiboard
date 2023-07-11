@@ -14,6 +14,7 @@ const useBoardingForm = () => {
  const [step, setStep] = useState(1);
  const [loading, setLoading] = useState(false);
  const [errorMessage, setErrorMessage] = useState('');
+ const [confirmPassword, setConfirmPassword] = useState('');
  const navigate = useNavigate();
  const [formData, setFormData] = useState<RiderFormData>({
   name: '',
@@ -56,6 +57,10 @@ const useBoardingForm = () => {
  }, [dispatch]);
 
  const handleSubmit = async (e: React.FormEvent) => {
+  if (formData.password !== confirmPassword) {
+   setErrorMessage("Passwords do not match");
+   return;
+  }
   setLoading(true);
   e.preventDefault();
 
@@ -88,6 +93,8 @@ const useBoardingForm = () => {
   handleSubmit,
   errorMessage,
   loading,
+  confirmPassword,
+  setConfirmPassword,
  };
 };
 
