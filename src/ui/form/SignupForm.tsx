@@ -13,9 +13,10 @@ import { riderNumber } from '../../utils/RiderNumber';
 import FormButton from '../buttons/FormButton';
 import Spinner from '../Spinner';
 import SignupFormWrapper from './SignupFormWrapper';
-import { isStepValid } from '../../utils/Validation';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { bankNames } from '../../utils/BankNames';
+import { isStepValid } from '../../utils/Validation';
 
 const SignupForm: React.FC = () => {
   const {
@@ -176,7 +177,7 @@ const SignupForm: React.FC = () => {
         {step === 3 && (
           <div>
             <h2 className='text-white text-center my-4'>
-              Enter in your CAC (Company Registration Number) - Should be 14
+              Enter in your CAC (Company Registration Number) - Should be 10
               digits
             </h2>
             <label className='block text-sm font-medium text-white'>
@@ -358,11 +359,20 @@ const SignupForm: React.FC = () => {
         {step === 9 && (
           <div>
             <h2 className='text-white text-center my-4'>
-              It is worthy to note that by submitting this form, you agree with
-              our <u>Terms and Conditions</u> including our{' '}
-              <u>Privacy Policy.</u>
+              Enter in your Account Number (Company Account Number)
             </h2>
-            <div className='flex justify-between mt-4'>
+            <label className='block text-sm font-medium text-white'>
+              Account
+            </label>
+            <input
+              type='text'
+              name='accountNumber'
+              value={formData.accountNumber}
+              onChange={handleChange}
+              className='block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm mb-4'
+            />
+
+            <div className='flex justify-between'>
               <Button onClick={handlePrevStep} disabled={false}>
                 <ArrowLeftIcon className='h-5 w-5' />
                 Previous
@@ -375,6 +385,54 @@ const SignupForm: React.FC = () => {
           </div>
         )}
         {step === 10 && (
+          <div>
+            <h2 className='text-white text-center my-4'>
+              Enter in your Bank Name (Company Bank Name)
+            </h2>
+            <label className='block text-sm font-medium text-white'>
+              Bank Names
+            </label>
+            <DropdownOptionInput
+              options={bankNames}
+              value={formData.bankName}
+              onChange={(value) =>
+                handleChange({ target: { name: 'bankName', value } } as
+                  | React.ChangeEvent<HTMLInputElement>
+                  | React.ChangeEvent<HTMLSelectElement>)
+              }
+            />
+            <div className='flex justify-between mt-4'>
+              <Button onClick={handlePrevStep} disabled={false}>
+                <ArrowLeftIcon className='h-5 w-5' />
+                Previous
+              </Button>
+              <Button onClick={handleNextStep} disabled={!isFormStepValid}>
+                Next
+                <ArrowRightIcon className='h-5 w-5' />
+              </Button>
+            </div>
+          </div>
+        )}
+        {step === 11 && (
+          <div>
+            <h2 className='text-white text-center my-4'>
+              It is worthy to note that by submitting this form, you agree with
+              our <u>Terms and Conditions</u> including our{' '}
+              <u>Privacy Policy.</u>
+            </h2>
+            <div className='flex justify-between mt-4'>
+              <Button onClick={handlePrevStep} disabled={false}>
+                <ArrowLeftIcon className='h-5 w-5' />
+                Previous
+              </Button>
+              <Button onClick={handleNextStep} disabled={false}>
+                Next
+                <ArrowRightIcon className='h-5 w-5' />
+              </Button>
+            </div>
+          </div>
+        )}
+        {step === 12 && (
           <div>
             <h2 className='text-white text-center my-4'>
               I agree. Sign me up.

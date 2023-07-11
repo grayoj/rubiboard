@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../buttons/Button';
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/20/solid';
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from '@heroicons/react/20/solid';
 import FormButton from '../buttons/FormButton';
 import Spinner from '../Spinner';
 import SignupFormWrapper from './SignupFormWrapper';
 import useBoardingForm from '../../hooks/useBoardingForm';
+import { isStepValid } from '../../utils/Validation';
 
 const OnboardingForm: React.FC = () => {
   const {
@@ -16,8 +22,12 @@ const OnboardingForm: React.FC = () => {
     handleSubmit,
     loading,
     errorMessage,
+    confirmPassword,
+    setConfirmPassword,
   } = useBoardingForm();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const isFormStepValid =
+    isStepValid(step, formData) && formData.password === confirmPassword;
   return (
     <SignupFormWrapper>
       <form onSubmit={handleSubmit}>
@@ -63,19 +73,70 @@ const OnboardingForm: React.FC = () => {
             <label className='block text-sm font-medium text-white'>
               Password
             </label>
-            <input
-              type='password'
-              name='password'
-              value={formData.password}
-              onChange={handleChange}
-              className='block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm mb-4'
-            />
+            <div className='mt-1'>
+              <div className='relative flex items-center'>
+                <input
+                  id='password'
+                  name='password'
+                  type={showPassword ? 'text' : 'password'}
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  className='block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm mb-4'
+                />
+                {showPassword ? (
+                  <EyeIcon
+                    type='button'
+                    className='text-black mb-6 text-xs absolute right-2 top-1/2 transform -translate-y-full cursor-pointer'
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{ width: '16px', height: '16px' }}
+                  />
+                ) : (
+                  <EyeSlashIcon
+                    type='button'
+                    className='text-black mb-6 text-xs absolute right-2 top-1/2 transform -translate-y-full cursor-pointer'
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{ width: '16px', height: '16px' }}
+                  />
+                )}
+              </div>
+            </div>
+            <label className='block text-sm font-medium text-white'>
+              Confirm Password
+            </label>
+            <div className='mt-1'>
+              <div className='relative flex items-center'>
+                <input
+                  name='ConfirmPassword'
+                  type={showPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  className='block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm mb-4'
+                />
+                {showPassword ? (
+                  <EyeIcon
+                    type='button'
+                    className='text-black mb-6 text-xs absolute right-2 top-1/2 transform -translate-y-full cursor-pointer'
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{ width: '16px', height: '16px' }}
+                  />
+                ) : (
+                  <EyeSlashIcon
+                    type='button'
+                    className='text-black mb-6 text-xs absolute right-2 top-1/2 transform -translate-y-full cursor-pointer'
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{ width: '16px', height: '16px' }}
+                  />
+                )}
+              </div>
+            </div>
             <div className='flex justify-between'>
               <Button onClick={handlePrevStep} disabled={false}>
                 <ArrowLeftIcon className='h-5 w-5' />
                 Previous
               </Button>
-              <Button onClick={handleNextStep} disabled={false}>
+              <Button onClick={handleNextStep} disabled={!isFormStepValid}>
                 Next
                 <ArrowRightIcon className='h-5 w-5' />
               </Button>
