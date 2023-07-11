@@ -21,6 +21,10 @@ import OnboardSuccess from '../pages/OnboardSuccess';
 import SendReset from '../pages/SendReset';
 import SetPassword from '../pages/SetPassword';
 import ReportsPage from '../pages/ReportsPage';
+import { PaymentsPage } from '../pages/PaymentsPage';
+import { PaymentsSearchPage } from '../pages/PaymentsSearchPage';
+import { UnderConstructionPage } from '../pages/UnderConstructionPage';
+import { SearchPaymentsPage } from '../pages/SearchPaymentsPage';
 
 const Routing = () => {
   return (
@@ -58,10 +62,28 @@ const Routing = () => {
                 />
                 <Route path='/dashboard/riders' element={<RidersPage />} />
                 <Route
+                  path='/dashboard/api'
+                  element={<UnderConstructionPage />}
+                />
+                <Route
+                  path='/dashboard/api/keys'
+                  element={<UnderConstructionPage />}
+                />
+                <Route path='/dashboard/riders' element={<RidersPage />} />
+
+                <Route
                   path='/dashboard/riders/onboard'
                   element={<OnboardRidersPage />}
                 />
-
+                <Route path='/dashboard/payments' element={<PaymentsPage />} />
+                <Route
+                  path='/dashboard/payments/search'
+                  element={<PaymentsSearchPage />}
+                />
+                <Route
+                  path='/dashboard/search/payments'
+                  element={<SearchPaymentsPage />}
+                />
                 <Route
                   path='/dashboard/riders/:id'
                   element={<ViewRiderPage />}
