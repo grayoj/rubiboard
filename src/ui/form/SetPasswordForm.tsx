@@ -45,8 +45,8 @@ const SetPasswordForm: React.FC<SetPasswordFormProps> = ({ resetToken }) => {
         <form onSubmit={handleSubmit}>
           <div>
             <div>
-              <h2 className='text-white my-4'>Set New Password</h2>
-              <label className='block text-sm font-medium text-white'>
+              <h2 className='text-black my-4'>Set New Password</h2>
+              <label className='block text-sm font-medium text-black'>
                 New Password
               </label>
               <div className='relative flex items-center'>
@@ -74,7 +74,7 @@ const SetPasswordForm: React.FC<SetPasswordFormProps> = ({ resetToken }) => {
               </div>
             </div>
             <div>
-              <label className='block text-sm font-medium text-white'>
+              <label className='block text-sm font-medium text-black'>
                 Confirm Passowrd
               </label>
               <div className='relative flex items-center'>
